@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  consul:
+    image: consul
+    container_name: consul
+    networks:
+      - mynetwork
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+    command: agent -server -bootstrap-expect 1 -ui -data-dir /tmp -client=0.0.0.0
+    # command: consul agent -dev -ui
+  # config:
+   # build: ./config-server
+   # container_name: config
+   # networks:
+   #   - mynetwork
+   # ports:
+   #   - "8762:8762"
+   #  volumes:
+   #   - /Users/BruceHsu/spring-cloud-settings/config-server:/config
+   #   - /Users/BruceHsu/app/conf:/data/app/conf
+  gateway:
+    build: ./gateway
+    restart: on-failure
+    ports:
+      - "8763:8763"
+    networks:
+      - mynetwork
+    depends_on:
+      - consul
+    environment:
+      - JAVA_OPTS=
+        -CONSUL_SERVER=consul
+  redis:
+    image: redis
+    container_name: ibm_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - mynetwork
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+networks:
+  mynetwork:

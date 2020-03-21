@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %-5level %X{server.name} %X{sessionPk} %X{txnPk} [%file:%line] %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- root -->
+	<root level="INFO" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
