@@ -32,8 +32,7 @@ services:
     depends_on:
       - consul
     environment:
-      - JAVA_OPTS=
-        -CONSUL_SERVER=consul
+      - CONSUL_SERVER=consul
   redis:
     image: redis
     container_name: ibm_redis

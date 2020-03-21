@@ -1,0 +1,18 @@
+server:
+  port: 8762
+  servlet-path: /*
+  
+info:
+  component: Config Server
+
+spring:
+  jmx:
+    default-domain: config
+  cloud:
+    config:
+      server:
+        prefix: /config
+        native: 
+          searchLocations: ${CONF_FOLDER:file:///data/app/conf}
+  profiles: 
+    active: native
