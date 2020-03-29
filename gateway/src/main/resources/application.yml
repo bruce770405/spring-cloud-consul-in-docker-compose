@@ -1,0 +1,30 @@
+server:
+  port: ${SERVER_PORT:8763}
+  servlet:
+    path: /*
+
+info:
+  component: Gateway Server
+  
+#######################
+#
+#
+#######################
+authorization:
+  enable : true 
+  settingFile : /data/app/conf/allow.list
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    consul:
+      host: ${CONSUL_SERVER:127.0.0.1}
+      port: 8500
+      enabled: true
+      discovery:
+        register: false

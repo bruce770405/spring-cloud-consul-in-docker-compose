@@ -1,5 +1,5 @@
 server:
-  port: 8762
+  port: ${SERVER_PORT:8762}
   servlet-path: /*
   
 info:

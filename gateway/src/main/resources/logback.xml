@@ -2,7 +2,7 @@
 <configuration>
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%date %-5level %X{server.name} %X{sessionPk} %X{txnPk} [%file:%line] %msg%n
+			<pattern>%date %-5level %X{server.name} %X{sessionPk} [%file:%line] %msg%n
 			</pattern>
 		</encoder>
 	</appender>

@@ -12,16 +12,17 @@ services:
       - "8600:8600/udp"
     command: agent -server -bootstrap-expect 1 -ui -data-dir /tmp -client=0.0.0.0
     # command: consul agent -dev -ui
-  # config:
-   # build: ./config-server
-   # container_name: config
-   # networks:
-   #   - mynetwork
-   # ports:
-   #   - "8762:8762"
-   #  volumes:
-   #   - /Users/BruceHsu/spring-cloud-settings/config-server:/config
-   #   - /Users/BruceHsu/app/conf:/data/app/conf
+  config:
+    build: ./config-server
+    container_name: config
+    networks:
+      - mynetwork
+    ports:
+      - "8762:8762"
+    volumes:
+      - /Users/BruceHsu/RBank/app/ebank/conf:/data/app/conf # 此段把本機的config file放入container內
+    environment:
+      - CONF_FOLDER=file:///data/app/conf
   gateway:
     build: ./gateway
     restart: on-failure
