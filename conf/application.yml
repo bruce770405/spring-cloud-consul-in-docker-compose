@@ -1,0 +1,29 @@
+##################################################################
+#  Server Section
+#  (1) server.port  : defaul value = 0 , is random port
+##################################################################
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+##################################################################
+#  Feign Section
+##################################################################
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 30000
+        loggerLevel: full
+
+##################################################################
+#  STRESS TEST Section
+##################################################################
+StressTest:
+  multiLogin: false
+  closeCaptcha: true
+  closeOtp: false
+  passLogin: false
+  noLogin: false
+  closeValidation: false
+  mockEsb: false

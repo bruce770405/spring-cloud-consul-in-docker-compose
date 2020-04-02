@@ -1,13 +1,11 @@
-FROM maven:alpine
+FROM maven:slim
 MAINTAINER BruceHsu <bruce770405@gmail.com>
 
 EXPOSE 8762
-ADD ./ /app/spring-cloud-config-server/
-WORKDIR /app/spring-cloud-config-server/
+ADD ./ /opt/spring-cloud-config-server/
+WORKDIR /opt/spring-cloud-config-server/
 RUN mvn package
 VOLUME /config
 WORKDIR /
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar",\
-            "/app/spring-cloud-config-server/target/server-config-1.0.0-SNAPSHOT.war",\
-            "--server.port=8762",\
-            "--spring.config.name=configserver"]
+# "-Djava.security.egd=file:/dev/./urandom"
+ENTRYPOINT ["java", "-jar","/opt/spring-cloud-config-server/target/config-server-0.0.1-SNAPSHOT.jar","--server.port=8762"]

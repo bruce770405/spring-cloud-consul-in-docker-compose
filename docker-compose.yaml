@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   consul:
-    image: consul
+    image: consul:1.7
     container_name: consul
     networks:
       - mynetwork
@@ -20,12 +20,13 @@ services:
     ports:
       - "8762:8762"
     volumes:
-      - /Users/BruceHsu/RBank/app/ebank/conf:/data/app/conf # 此段把本機的config file放入container內
+      - ./conf:/config # 此段把本機的config file放入container內
     environment:
-      - CONF_FOLDER=file:///data/app/conf
+      - CONF_FOLDER=file:///config
   gateway:
     build: ./gateway
-    restart: on-failure
+    container_name: gateway
+    restart: on-failure # 失敗重試
     ports:
       - "8763:8763"
     networks:
@@ -35,8 +36,8 @@ services:
     environment:
       - CONSUL_SERVER=consul
   redis:
-    image: redis
-    container_name: ibm_redis
+    image: redis:5-alpine
+    container_name: redis
     command: redis-server /usr/local/etc/redis/redis.conf
     networks:
       - mynetwork
